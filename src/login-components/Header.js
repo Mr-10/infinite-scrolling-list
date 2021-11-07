@@ -9,18 +9,21 @@ const headerStyle = {
 class Header extends React.Component {
   state = {
     username: "",
+    password: "",
   };
 
   handleChange = (e) => this.setState({ username: e.target.value });
 
+  handlePasswordChange = (e) => this.setState({ password: e.target.value });
+
   fakeLogin = (e) => {
-    const { username } = this.state;
+    const { username, password } = this.state;
     e.preventDefault();
-    if (!username) {
-      return alert("Provide valid username!!");
+    if (!username || !password) {
+      return alert("Provide valid details!!");
     }
-    this.props.login(username);
-    this.setState({ username: "" });
+    this.props.login(username, password);
+    this.setState({ username: "", password: "" });
   };
 
   fakeLogout = () => this.props.logout();
@@ -44,8 +47,16 @@ class Header extends React.Component {
         <form onSubmit={this.fakeLogin}>
           <input
             value={this.state.username}
+            placeholder="Username"
             style={{ width: "80px" }}
             onChange={this.handleChange}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={this.state.password}
+            style={{ width: "80px" }}
+            onChange={this.handlePasswordChange}
           />
           &nbsp; | &nbsp;
           <button>Login</button> &nbsp;| &nbsp;

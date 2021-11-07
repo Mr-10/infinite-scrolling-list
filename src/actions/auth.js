@@ -11,17 +11,19 @@ const userLogout = () => ({
   type: types.AUTH_LOGOUT,
 });
 
-const fakeLoginRequest = (username) =>
+const fakeLoginRequest = (username, password) =>
   new Promise((resolve, reject) =>
     setTimeout(() => {
-      username === "foo" ? resolve(username) : reject("No such user");
+      username === "foo" && password === "bar"
+        ? resolve(username)
+        : reject("No such user");
     }, 1000)
   );
 
-export const login = (username) => async (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   dispatch(incrementProgress());
   try {
-    const userResponse = await fakeLoginRequest(username);
+    const userResponse = await fakeLoginRequest(username, password);
     dispatch(userLogin(userResponse));
     history.push("/home");
   } catch (error) {
