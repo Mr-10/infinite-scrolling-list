@@ -17,7 +17,7 @@ const App = ({ auth, login, logout }) => (
       <Switch>
         <Route exact path="/" component={LandingPage} />
         <PrivateRoute path="/home" component={Home} auth={auth} />
-        <Route component={() => <div>No such page!</div>} />
+        <Route component={() => <div>Page Not Found!</div>} />
       </Switch>
     </div>
   </Router>
